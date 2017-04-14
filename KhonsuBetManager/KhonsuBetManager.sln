@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetManager.Models", "BetManager.Models\BetManager.Models.csproj", "{CEE0D82C-548E-46DD-9934-0DA07C64018F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetManager.Data", "BetManager.Data\BetManager.Data.csproj", "{8DC4AB14-E2DE-48AD-BAD5-52AB6FF8F1A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetManager.Client", "BetManager.Client\BetManager.Client.csproj", "{EDA0765D-6AD9-4D3B-B869-79F22C0C477D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEE0D82C-548E-46DD-9934-0DA07C64018F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE0D82C-548E-46DD-9934-0DA07C64018F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE0D82C-548E-46DD-9934-0DA07C64018F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE0D82C-548E-46DD-9934-0DA07C64018F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC4AB14-E2DE-48AD-BAD5-52AB6FF8F1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC4AB14-E2DE-48AD-BAD5-52AB6FF8F1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC4AB14-E2DE-48AD-BAD5-52AB6FF8F1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC4AB14-E2DE-48AD-BAD5-52AB6FF8F1A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA0765D-6AD9-4D3B-B869-79F22C0C477D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA0765D-6AD9-4D3B-B869-79F22C0C477D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA0765D-6AD9-4D3B-B869-79F22C0C477D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA0765D-6AD9-4D3B-B869-79F22C0C477D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

@@ -8,16 +8,16 @@ TODO:
 
 Create functionality.
 
-Make **User** **Register** function
-Make **User** **Login** function
-Make **User** **Logout** function
-Promote some **Users** to **Admins** manualy
-Make function for **Admin** to **Promote** other **Users** to **Admins**
-Make function for **Admin** to **Add Matches**
-Make function for **Admin** to **Update Match Score**
-Make function for **User** to **Deposit Money** -> Update **Accounting** propperly
-Make function for **User** to **Place Bets**
-Make function when **Match Score** is updated to **Resolve Bets**
-Make function for **User** to view **Placed Bets**
-Make some **Accounting** functionality for **Admin**
-**Add more functions**
+Make **User** **Register** function<br/>
+Make **User** **Login** function<br/>
+Make **User** **Logout** function<br/>
+Promote some **Users** to **Admins** manualy<br/>
+Make function for **Admin** to **Promote** other **Users** to **Admins**<br/>
+Make function for **Admin** to **Add Matches**<br/>
+Make function for **Admin** to **Update Match Score**<br/>
+Make function for **User** to **Deposit Money** -> Update **Accounting** propperly<br/>
+Make function for **User** to **Place Bets**<br/>
+Make function when **Match Score** is updated to **Resolve Bets**<br/>
+Make function for **User** to view **Placed Bets**<br/>
+Make some **Accounting** functionality for **Admin**<br/>
+**Add more functions**<br/>

@@ -21,3 +21,4 @@ Make function when **Match Score** is updated to **Resolve Bets**<br/>
 Make function for **User** to view **Placed Bets**<br/>
 Make some **Accounting** functionality for **Admin**<br/>
 **Add more functions**<br/>
+Add **HELP** Menu

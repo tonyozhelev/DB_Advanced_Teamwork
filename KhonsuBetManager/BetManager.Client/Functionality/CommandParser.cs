@@ -8,18 +8,21 @@ namespace BetManager.Client.Functionality
 {
     public class CommandParser
     {
-        public void Execute(string command)
+        public string Execute(string command)
         {
+            string output = "";
             if (command == "Exit")
             {
-                this.Exit();
+                output = this.Exit();
             }
+
+            return output;
         }
         private string Exit()
         {
             Environment.Exit(0);
 
-            return string.Empty;
+            return "You have exited the program!";
         }
     }
 }

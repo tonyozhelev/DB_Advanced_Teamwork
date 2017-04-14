@@ -9,10 +9,20 @@
         static void Main(string[] args)
         {
             var Executor = new CommandParser();
-            var command = Console.ReadLine();
-
-            Executor.Execute(command);
-
+            
+            while (true)
+            {
+                try
+                {
+                    string command = Console.ReadLine();
+                    string output = Executor.Execute(command);
+                    Console.WriteLine(output);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }

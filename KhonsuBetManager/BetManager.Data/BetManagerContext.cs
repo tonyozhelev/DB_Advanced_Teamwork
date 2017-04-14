@@ -10,6 +10,7 @@ namespace BetManager.Data
         public BetManagerContext()
             : base("name=BetManagerContext")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<BetManagerContext, Migrations.Configuration>());
         }
 
         public virtual DbSet<Accounting> Accounting { get; set; }

@@ -8,7 +8,7 @@ TODO:
 
 Create functionality.
 
-Make **User** **Register** function<br/>
+Make **User** **Register** function -> **DONE**<br/>
 Make **User** **Login** function<br/>
 Make **User** **Logout** function<br/>
 Promote some **Users** to **Admins** manualy<br/>

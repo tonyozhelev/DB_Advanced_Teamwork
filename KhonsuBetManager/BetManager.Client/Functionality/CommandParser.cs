@@ -28,13 +28,13 @@ namespace BetManager.Client.Functionality
                     output = UserFunc.RegisterNewUser(commandArgs);
                     break;
                 case "login":
-                    output = this.LoginUser(commandArgs);
+                    output = UserFunc.LoginUser(commandArgs);
                     break;
                 case "logout":
-                    output = this.LogoutUser();
+                    output = UserFunc.LogoutUser();
                     break;
                 case "changepass":
-                    output = this.ChangePass(commandArgs);
+                    output = UserFunc.ChangePass(commandArgs);
                     break;
                 default:
                     break;

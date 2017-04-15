@@ -12,7 +12,7 @@ Make **User** **Login** function -> **DONE**<br/>
 Make **User** **Logout** function -> **DONE**<br/>
 Promote some **Users** to **Admins** manualy -> **DONE**<br/>
 Make **User** function to **Change Password** -> **DONE**<br/>
-Make **User** function to **Reset Password** -> send e-mail with random generated password<br/>
+Make **User** function to **Reset Password** -> send e-mail with random generated password (this will be added later if possible)<br/>
 
 Admin Functionality:<br/>
 Make function for **Admin** to **Promote** other **Users** to **Admins**<br/>

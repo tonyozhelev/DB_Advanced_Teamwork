@@ -28,7 +28,7 @@ Make function for **User** to **Place Bets**<br/>
 Make function for **User** to **Filter Matches**<br/>
 Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>
 
-General:
+General:<br/>
 Add **HELP** Menu<br/>
 **Add more functions**<br/>
 

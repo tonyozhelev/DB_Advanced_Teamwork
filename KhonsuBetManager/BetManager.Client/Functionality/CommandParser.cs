@@ -33,6 +33,9 @@ namespace BetManager.Client.Functionality
                 case "logout":
                     output = this.LogoutUser();
                     break;
+                case "changepass":
+                    output = this.ChangePass(commandArgs);
+                    break;
                 default:
                     break;
             }
@@ -40,6 +43,7 @@ namespace BetManager.Client.Functionality
             return output;
         }
 
+        
         private string RegisterNewUser(string[] input)
         {
             if (input.Length != 3)
@@ -103,7 +107,7 @@ namespace BetManager.Client.Functionality
 
             using (var context = new BetManagerContext())
             {
-                var user = context.Users.Where(x => x.Login == userName && x.Password == pass).First();
+                var user = context.Users.Where(x => x.Login == userName && x.Password == pass).FirstOrDefault();
 
                 if (user == null)
                 {
@@ -129,6 +133,39 @@ namespace BetManager.Client.Functionality
 
             return $"User {username} logged out!";
         }
+
+        private string ChangePass(string[] commandArgs)
+        {
+            if (commandArgs.Length != 2)
+            {
+                throw new InvalidOperationException("Invalid command! Change password command should be in the following format:\n changepass [old password] [new password]");
+            }
+            if (!Authenticator.IsAuthenticated())
+            {
+                throw new ArgumentException("You should login first!");
+            }
+
+            var oldPassword = commandArgs[0];
+            var newPassword = commandArgs[1];
+
+            var user = Authenticator.GetCurrentUser();
+
+            if (oldPassword != user.Password)
+            {
+                throw new ArgumentException("Your old password is not correct!");
+            }
+            
+            this.ValidateUser(user);
+            user.Password = newPassword;
+            using (var context = new BetManagerContext())
+            {
+                context.Users.Where(x => x.Id == user.Id).First().Password = newPassword;
+                context.SaveChanges();
+            }
+
+            return $"User {user.Login} sucessfuly changed his password!";
+        }
+
 
 
         private string Exit()

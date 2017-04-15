@@ -1,9 +1,10 @@
 ﻿namespace BetManager.Client.Functionality
 {
-using BetManager.Data;
-using BetManager.Models;
-using System;
-using System.Linq;
+    using BetManager.Data;
+    using BetManager.Models;
+    using System;
+    using System.Linq;
+    using System.Text.RegularExpressions;
 
 
     //User Functionality -> Create,Delete,Login,Logout,ChangePass etc.

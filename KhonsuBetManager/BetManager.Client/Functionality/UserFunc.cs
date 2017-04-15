@@ -1,11 +1,12 @@
-﻿using BetManager.Data;
+﻿namespace BetManager.Client.Functionality
+{
+using BetManager.Data;
 using BetManager.Models;
 using System;
 using System.Linq;
 
 
-namespace BetManager.Client.Functionality
-{
+    //User Functionality -> Create,Delete,Login,Logout,ChangePass etc.
     public class UserFunc
     {
         public static string RegisterNewUser(string[] input)

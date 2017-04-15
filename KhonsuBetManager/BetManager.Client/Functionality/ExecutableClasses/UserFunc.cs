@@ -1,4 +1,4 @@
-﻿namespace BetManager.Client.Functionality
+﻿namespace BetManager.Client.Functionality.ExecutableClasses
 {
     using BetManager.Data;
     using BetManager.Models;
@@ -12,14 +12,15 @@
     {
         public static string RegisterNewUser(string[] input)
         {
-            if (input.Length != 3)
-            {
-                throw new ArgumentException("Invalid input! Register command should be in the following format:\nregister [username] [password] [email]");
-            }
             if (Authenticator.IsAuthenticated())
             {
                 throw new InvalidOperationException("You should logout to create new user!");
             }
+            if (input.Length != 3)
+            {
+                throw new ArgumentException("Invalid input! Register command should be in the following format:\nregister [username] [password] [email]");
+            }
+            
 
             string userName = input[0];
             string pwd = input[1];
@@ -59,15 +60,15 @@
 
         public static string LoginUser(string[] input)
         {
-            if (input.Length != 2)
-            {
-                throw new ArgumentException("Invalid input! Login command should be in the following format:\nlogin [username] [password]");
-            }
             if (Authenticator.IsAuthenticated())
             {
                 throw new InvalidOperationException("You are already logged in");
             }
-
+            if (input.Length != 2)
+            {
+                throw new ArgumentException("Invalid input! Login command should be in the following format:\nlogin [username] [password]");
+            }
+            
             var userName = input[0];
             var pass = input[1];
 
@@ -102,14 +103,15 @@
 
         public static string ChangePass(string[] commandArgs)
         {
-            if (commandArgs.Length != 2)
-            {
-                throw new InvalidOperationException("Invalid command! Change password command should be in the following format:\n changepass [old password] [new password]");
-            }
             if (!Authenticator.IsAuthenticated())
             {
                 throw new ArgumentException("You should login first!");
             }
+            if (commandArgs.Length != 2)
+            {
+                throw new InvalidOperationException("Invalid command! Change password command should be in the following format:\n changepass [old password] [new password]");
+            }
+            
 
             var oldPassword = commandArgs[0];
             var newPassword = commandArgs[1];

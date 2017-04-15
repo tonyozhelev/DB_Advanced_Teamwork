@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201704142329427_AddedRequiredMatchScore.Designer.cs">
       <DependentUpon>201704142329427_AddedRequiredMatchScore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704150116307_AddedOwnerToAdmin.cs" />
+    <Compile Include="Migrations\201704150116307_AddedOwnerToAdmin.Designer.cs">
+      <DependentUpon>201704150116307_AddedOwnerToAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704142329427_AddedRequiredMatchScore.resx">
       <DependentUpon>201704142329427_AddedRequiredMatchScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704150116307_AddedOwnerToAdmin.resx">
+      <DependentUpon>201704150116307_AddedOwnerToAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

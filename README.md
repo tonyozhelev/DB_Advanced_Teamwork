@@ -16,6 +16,7 @@ Make **User** function to **Reset Password** -> send e-mail with random generate
 
 Admin Functionality:<br/>
 Make function for **Admin** to **Promote** other **Users** to **Admins**<br/>
+Make function for **Admin** to **Demote** other **Users** to **Admins**<br/>
 Make function for **Admin** to **Add Matches**<br/>
 Make function for **Admin** to **Update Match Results**<br/>
 Make function when **Match Score** is updated to **Resolve Bets**<br/>

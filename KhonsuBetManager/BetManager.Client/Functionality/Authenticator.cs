@@ -1,7 +1,9 @@
 ﻿namespace BetManager.Client.Functionality
 {
+    using Data;
     using Models;
     using System;
+    using System.Linq;
 
     class Authenticator
     {
@@ -15,6 +17,16 @@
         public static bool IsAdmin()
         {
             return currentUser.IsAdmin == 1;
+        }
+
+        public static bool IsOwner()
+        {
+            var isOwner = 0;
+            using (var context = new BetManagerContext())
+            {
+                isOwner = context.Admins.Where(a => a.UserId == currentUser.Id).First().Owner;
+            }
+            return isOwner == 1;
         }
 
         public static void Logout()

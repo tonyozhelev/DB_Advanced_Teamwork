@@ -27,7 +27,8 @@ namespace BetManager.Data.Migrations
             context.SaveChanges();
 
             context.Admins.AddOrUpdate(a => a.UserId, new Admin {
-                UserId = context.Users.Where(u => u.Login == "admin").First().Id
+                UserId = context.Users.Where(u => u.Login == "admin").First().Id,
+                Owner = 1
             });
 
             context.SaveChanges();

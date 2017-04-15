@@ -1,4 +1,5 @@
-﻿using BetManager.Data;
+﻿using BetManager.Client.Functionality.ExecutableClasses;
+using BetManager.Data;
 using BetManager.Models;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,9 @@ namespace BetManager.Client.Functionality
                     break;
                 case "changepass":
                     output = UserFunc.ChangePass(commandArgs);
+                    break;
+                case "promote":
+                    output = AdminFunc.PromoteUser(commandArgs);
                     break;
                 default:
                     break;

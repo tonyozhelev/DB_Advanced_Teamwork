@@ -27,6 +27,12 @@ namespace BetManager.Client.Functionality
                 case "register":
                     output = this.RegisterNewUser(commandArgs);
                     break;
+                case "login":
+                    output = this.LoginUser(commandArgs);
+                    break;
+                case "logout":
+                    output = this.LogoutUser();
+                    break;
                 default:
                     break;
             }
@@ -79,6 +85,51 @@ namespace BetManager.Client.Functionality
 
             return $"User {userName} successfully registered!";
         }
+
+
+        private string LoginUser(string[] input)
+        {
+            if (input.Length != 2)
+            {
+                throw new ArgumentException("Invalid input! Login command should be in the following format:\nlogin [username] [password]");
+            }
+            if (Authenticator.IsAuthenticated())
+            {
+                throw new InvalidOperationException("You are already logged in");
+            }
+
+            var userName = input[0];
+            var pass = input[1];
+
+            using (var context = new BetManagerContext())
+            {
+                var user = context.Users.Where(x => x.Login == userName && x.Password == pass).First();
+
+                if (user == null)
+                {
+                    throw new ArgumentException("Invalid Username/Password");
+                }
+
+                Authenticator.Login(user);
+            }
+
+            return $"User {userName} logged in successfully!";
+        }
+
+
+        private string LogoutUser()
+        {
+            if (!Authenticator.IsAuthenticated())
+            {
+                throw new ArgumentException("You should login first!");
+            }
+
+            var username = Authenticator.GetCurrentUser().Login;
+            Authenticator.Logout();
+
+            return $"User {username} logged out!";
+        }
+
 
         private string Exit()
         {

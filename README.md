@@ -15,8 +15,8 @@ Make **User** function to **Change Password** -> **DONE**<br/>
 Make **User** function to **Reset Password** -> send e-mail with random generated password (this will be added later if possible)<br/>
 
 Admin Functionality:<br/>
-Make function for **Owners** to **Promote** other **Users** to **Admins** -> DONE<br/>
-Make function for **Owners** to **Demote** other **Users** from **Admins**<br/>
+Make function for **Owners** to **Promote** other **Users** to **Admins** -> **DONE<br/>
+Make function for **Owners** to **Demote** other **Users** from **Admins** -> **DONE**<br/>
 Make function for **Admin** to **Add Matches**<br/>
 Make function for **Admin** to **Update Match Results**<br/>
 Make function when **Match Score** is updated to **Resolve Bets**<br/>

@@ -18,5 +18,6 @@ namespace BetManager.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Bet> Bets { get; set; }
         public virtual DbSet<Match> Matches { get; set; }
+        public virtual DbSet<MatchesBets> MatchesBets { get; set; }
     }
 }

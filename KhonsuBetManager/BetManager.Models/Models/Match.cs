@@ -6,6 +6,10 @@
 
     public class Match
     {
+        public Match()
+        {
+            this.MatchesBets = new HashSet<MatchesBets>();
+        }
         public int Id { get; set; }
         [Required]
         public string Team1 { get; set; }
@@ -22,6 +26,6 @@
         public int Result { get; set; }
         [Required]
         public string Score { get; set; }
-        public virtual ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<MatchesBets> MatchesBets { get; set; }
     }
 }

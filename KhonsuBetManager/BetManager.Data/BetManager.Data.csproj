@@ -68,6 +68,14 @@
     <Compile Include="Migrations\201704150116307_AddedOwnerToAdmin.Designer.cs">
       <DependentUpon>201704150116307_AddedOwnerToAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704161830570_AddedLastLoginToUser.cs" />
+    <Compile Include="Migrations\201704161830570_AddedLastLoginToUser.Designer.cs">
+      <DependentUpon>201704161830570_AddedLastLoginToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161831529_WTFMigration.cs" />
+    <Compile Include="Migrations\201704161831529_WTFMigration.Designer.cs">
+      <DependentUpon>201704161831529_WTFMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704150116307_AddedOwnerToAdmin.resx">
       <DependentUpon>201704150116307_AddedOwnerToAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161830570_AddedLastLoginToUser.resx">
+      <DependentUpon>201704161830570_AddedLastLoginToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161831529_WTFMigration.resx">
+      <DependentUpon>201704161831529_WTFMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

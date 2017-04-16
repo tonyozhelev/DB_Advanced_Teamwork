@@ -27,7 +27,7 @@
             {
                 var userToPromote = context.Users.Where(u => u.Login == username).FirstOrDefault();
 
-                if (userToPromote == null)
+                if (userToPromote.Login != username)
                 {
                     throw new ArgumentException("Invalid username!");
                 }

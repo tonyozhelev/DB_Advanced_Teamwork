@@ -28,6 +28,7 @@ Make function for **User** to **Deposit Money** -> Update **Accounting** propper
 Make function for **User** to **Place Bets**<br/>
 Make function for **User** to **Filter Matches**<br/>
 Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>
+Display resolved matches since last Login on **User** **Login**<br/>
 
 General:<br/>
 Add **HELP** Menu<br/>

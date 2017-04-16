@@ -76,7 +76,7 @@
             {
                 var user = context.Users.Where(x => x.Login == userName && x.Password == pass).FirstOrDefault();
 
-                if (user.Password != pass || user.Login != userName)
+                if (user == null || user.Password != pass || user.Login != userName)
                 {
                     throw new ArgumentException("Invalid Username/Password");
                 }

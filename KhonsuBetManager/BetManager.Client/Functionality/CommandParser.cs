@@ -40,6 +40,9 @@ namespace BetManager.Client.Functionality
                 case "promote":
                     output = AdminFunc.PromoteUser(commandArgs);
                     break;
+                case "demote":
+                    output = AdminFunc.DemoteUser(commandArgs);
+                    break;
                 default:
                     break;
             }

@@ -31,8 +31,11 @@
             }
             var isOwner = 0;
             using (var context = new BetManagerContext())
-            {                
-                isOwner = context.Admins.FirstOrDefault(a => a.UserId == currentUser.Id).Owner;
+            {
+                if (context.Admins.Where(a => a.UserId == currentUser.Id).FirstOrDefault() != null)
+                {
+                    isOwner = context.Admins.Where(a => a.UserId == currentUser.Id).FirstOrDefault().Owner;
+                }                
             }
             return isOwner == 1;
         }

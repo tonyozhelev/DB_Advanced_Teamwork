@@ -49,6 +49,9 @@ namespace BetManager.Client.Functionality
                 case "deposit":
                     output = UserBetFunc.DepositMoney(commandArgs);
                     break;
+                case "withdraw":
+                    output = UserBetFunc.WithdrawMoney(commandArgs);
+                    break;
                 default:
                     break;
             }

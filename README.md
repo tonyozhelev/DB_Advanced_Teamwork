@@ -23,15 +23,16 @@ Make function for **Admin** to **Add Matches** -> **DONE**<br/>
 Make function for **Admin** to **Add Matches from file**<br/>
 Make function for **Admin** to **Update Match Results**<br/>
 Make function when **Match Score** is updated to **Resolve Bets**<br/>
-Add initial money to operate with<br/>
+Add initial money to operate with -> **DONE**<br/>
 Make **Admin** function to **Delete Account**<br/>
 Make **Admin** function to **Restore Account**<br/>
 Make some **Accounting** functionality for **Admin/Owner** -> print some data in xml or json<br/>
 
 User Betting Functionality:<br/>
-Make function for **User** to **Deposit Money** -> Update **Accounting** propperly<br/>
-Make function for **User** to **Withdraw Money** -> Update **Accounting** propperly<br/>
+Make function for **User** to **Deposit Money** -> **DONE**<br/>
+Make function for **User** to **Withdraw Money** -> **DONE**<br/>
 Make function for **User** to **Place Bets**<br/>
+Make function for **User** to **View Matches**<br/>
 Make function for **User** to **Filter Matches**<br/>
 Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>
 Display resolved matches since last Login on **User** **Login**<br/>

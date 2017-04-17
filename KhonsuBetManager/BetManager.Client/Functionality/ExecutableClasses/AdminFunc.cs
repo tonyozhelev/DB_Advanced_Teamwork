@@ -14,7 +14,7 @@
         {
             if (!Authenticator.IsOwner())
             {
-                throw new InvalidOperationException("No such command!");
+                throw new InvalidOperationException("Invalid operation!");
             }
 
             if (input.Length > 1)

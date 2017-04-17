@@ -16,7 +16,7 @@
 
         public static bool IsAdmin()
         {
-            if (currentUser == null)
+            if (!IsAuthenticated())
             {
                 throw new InvalidOperationException("Invalid operation!");
             }
@@ -25,6 +25,10 @@
 
         public static bool IsOwner()
         {
+            if (!IsAuthenticated())
+            {
+                throw new InvalidOperationException("Invalid operation!");
+            }
             var isOwner = 0;
             using (var context = new BetManagerContext())
             {                

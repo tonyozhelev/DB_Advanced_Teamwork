@@ -9,7 +9,7 @@
         static void Main(string[] args)
         {
             var Executor = new CommandParser();
-
+            
             while (true)
             {
                 try

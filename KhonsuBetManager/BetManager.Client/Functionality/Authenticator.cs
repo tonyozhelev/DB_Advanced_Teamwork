@@ -16,6 +16,10 @@
 
         public static bool IsAdmin()
         {
+            if (currentUser == null)
+            {
+                throw new InvalidOperationException("Invalid operation!");
+            }
             return currentUser.IsAdmin == 1;
         }
 
@@ -23,7 +27,7 @@
         {
             var isOwner = 0;
             using (var context = new BetManagerContext())
-            {
+            {                
                 isOwner = context.Admins.FirstOrDefault(a => a.UserId == currentUser.Id).Owner;
             }
             return isOwner == 1;

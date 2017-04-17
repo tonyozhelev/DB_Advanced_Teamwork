@@ -82,17 +82,23 @@
                 }
 
                 Authenticator.Login(user);
+                user.LastLogin = DateTime.Now;
+                context.SaveChanges();
             }
 
             return $"User {userName} logged in successfully!";
         }
 
 
-        public static string LogoutUser()
+        public static string LogoutUser(string[] commandArgs)
         {
             if (!Authenticator.IsAuthenticated())
             {
-                throw new ArgumentException("You should login first!");
+                throw new InvalidOperationException("You should login first!");
+            }
+            if (commandArgs.Length != 0)
+            {
+                throw new ArgumentException("Too many variables. If you want to logout just type \"Logout\"");
             }
 
             var username = Authenticator.GetCurrentUser().Login;

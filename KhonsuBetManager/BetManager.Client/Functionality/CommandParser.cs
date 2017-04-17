@@ -32,7 +32,7 @@ namespace BetManager.Client.Functionality
                     output = UserFunc.LoginUser(commandArgs);
                     break;
                 case "logout":
-                    output = UserFunc.LogoutUser();
+                    output = UserFunc.LogoutUser(commandArgs);
                     break;
                 case "changepass":
                     output = UserFunc.ChangePass(commandArgs);
@@ -42,6 +42,9 @@ namespace BetManager.Client.Functionality
                     break;
                 case "demote":
                     output = AdminFunc.DemoteUser(commandArgs);
+                    break;
+                case "addmatch":
+                    output = AdminFunc.AddMatch(commandArgs);
                     break;
                 default:
                     break;

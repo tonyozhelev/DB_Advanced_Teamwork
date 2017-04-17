@@ -24,7 +24,6 @@
         [Required]
         public DateTime End { get; set; }
         public int Result { get; set; }
-        [Required]
         public string Score { get; set; }
         public virtual ICollection<MatchesBets> MatchesBets { get; set; }
     }

@@ -80,6 +80,14 @@
     <Compile Include="Migrations\201704161839429_AddedMatchBetsMappingWithResult.Designer.cs">
       <DependentUpon>201704161839429_AddedMatchBetsMappingWithResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704170832599_updatingBetsPropperly.cs" />
+    <Compile Include="Migrations\201704170832599_updatingBetsPropperly.Designer.cs">
+      <DependentUpon>201704170832599_updatingBetsPropperly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704171006094_removedRequiredScoreFromMatches.cs" />
+    <Compile Include="Migrations\201704171006094_removedRequiredScoreFromMatches.Designer.cs">
+      <DependentUpon>201704171006094_removedRequiredScoreFromMatches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -114,6 +122,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704161839429_AddedMatchBetsMappingWithResult.resx">
       <DependentUpon>201704161839429_AddedMatchBetsMappingWithResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170832599_updatingBetsPropperly.resx">
+      <DependentUpon>201704170832599_updatingBetsPropperly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171006094_removedRequiredScoreFromMatches.resx">
+      <DependentUpon>201704171006094_removedRequiredScoreFromMatches.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,6 +30,7 @@ Make some **Accounting** functionality for **Admin/Owner** -> print some data in
 
 User Betting Functionality:<br/>
 Make function for **User** to **Deposit Money** -> Update **Accounting** propperly<br/>
+Make function for **User** to **Withdraw Money** -> Update **Accounting** propperly<br/>
 Make function for **User** to **Place Bets**<br/>
 Make function for **User** to **Filter Matches**<br/>
 Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>

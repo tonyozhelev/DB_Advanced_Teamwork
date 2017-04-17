@@ -1,7 +1,7 @@
 # DB_Advanced_Teamwork
 KhonsuBetManager
 
-WorkPlan:
+Initial WorkPlan (might be out of date):
 https://docs.google.com/spreadsheets/d/1UyuyxH8NBWgrdTSEfoZDH7DbEv70JDdWkZG5gCFQIho/edit#gid=0
 
 TODO:
@@ -32,7 +32,7 @@ User Betting Functionality:<br/>
 Make function for **User** to **Deposit Money** -> **DONE**<br/>
 Make function for **User** to **Withdraw Money** -> **DONE**<br/>
 Make function for **User** to **Place Bets**<br/>
-Make function for **User** to **View Matches**<br/>
+Make function for **User** to **View Matches** -> **DONE**<br/>
 Make function for **User** to **Filter Matches**<br/>
 Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>
 Display resolved matches since last Login on **User** **Login**<br/>

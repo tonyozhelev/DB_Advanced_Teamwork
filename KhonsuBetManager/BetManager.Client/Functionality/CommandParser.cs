@@ -52,6 +52,9 @@ namespace BetManager.Client.Functionality
                 case "withdraw":
                     output = UserBetFunc.WithdrawMoney(commandArgs);
                     break;
+                case "viewmatches":
+                    output = UserBetFunc.ViewMatches(commandArgs);
+                    break;
                 default:
                     break;
             }

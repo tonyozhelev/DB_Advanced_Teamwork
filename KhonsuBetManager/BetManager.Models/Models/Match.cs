@@ -23,6 +23,8 @@
         public DateTime Start { get; set; }
         [Required]
         public DateTime End { get; set; }
+
+        //1 for 1; 2 for 2; 3 for X;
         public int Result { get; set; }
         public string Score { get; set; }
         public virtual ICollection<MatchesBets> MatchesBets { get; set; }

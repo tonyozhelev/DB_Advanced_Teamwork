@@ -134,5 +134,40 @@ using System.Threading.Tasks;
 
             return $"You have sucessfully withdrawn {moneyToWithdraw} from your account! Money will be sent to VISA card N {cardNumber}";
         }
+
+        internal static string ViewMatches(string[] input)
+        {
+            if (!Authenticator.IsAuthenticated())
+            {
+                throw new InvalidOperationException("You should login first!");
+            }
+            if (input.Length != 1)
+            {
+                throw new InvalidOperationException("Invalid command! Viewmatches command should be in the following format\nviewmatches [future/past]");
+            }
+
+            var matches = new List<Models.Match>();
+            using (var context = new BetManagerContext())
+            {
+                if (input[0] == "future")
+                {
+                    matches = context.Matches.Where(m => m.Result == 0).ToList();
+                }
+                else
+                {
+                    matches = context.Matches.Where(m => m.Result != 0).ToList();
+                }
+            }
+
+            foreach (var m in matches)
+            {
+                if (m.League != "")
+                {
+                    Console.Write(m.League + ": ");
+                }
+                Console.WriteLine($"{m.Team1} VS {m.Team2} - starts on {m.Start}; Coef - 1:{m.Coef1} X:{m.CoefX} 2:{m.Coef2}");
+            }
+            return string.Empty;
+        }
     }
 }

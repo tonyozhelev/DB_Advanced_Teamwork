@@ -46,6 +46,9 @@ namespace BetManager.Client.Functionality
                 case "addmatch":
                     output = AdminFunc.AddMatch(commandArgs);
                     break;
+                case "deposit":
+                    output = UserBetFunc.DepositMoney(commandArgs);
+                    break;
                 default:
                     break;
             }

@@ -109,29 +109,29 @@
             Console.WriteLine("Enter coef for 1:");
             var coef1str = Console.ReadLine();
             var coef1 = 0m;
-            if (!decimal.TryParse(coef1str, out coef1))
+            if (!decimal.TryParse(coef1str, out coef1) || coef1 <= 0m)
             {
                 throw new ArgumentException("Coef should be a number with a floating point. Please start over with the addmatch command");
             }
             Console.WriteLine("Enter coef for X:");
             var coef2str = Console.ReadLine();
             var coef2 = 0m;
-            if (!decimal.TryParse(coef1str, out coef2))
+            if (!decimal.TryParse(coef2str, out coef2) || coef2 <= 0m)
             {
-                throw new ArgumentException("Coef should be a number with a floating point. Please start over with the addmatch command");
+                throw new ArgumentException("Coef should be a positive number with a floating point. Please start over with the addmatch command");
             }
             Console.WriteLine("Enter coef for 2:");
             var coef3str = Console.ReadLine();
             var coef3 = 0m;
-            if (!decimal.TryParse(coef1str, out coef3))
+            if (!decimal.TryParse(coef3str, out coef3) || coef3 <= 0m)
             {
-                throw new ArgumentException("Coef should be a number with a floating point. Please start over with the addmatch command");
+                throw new ArgumentException("Coef should be a positive number with a floating point. Please start over with the addmatch command");
             }
             DateTime start;
             Console.WriteLine("Enter start date and time in the following format dd-mm-yy hh:mm using a 24 hour format:");
             if (!DateTime.TryParseExact(Console.ReadLine(), "d-M-y H:m", CultureInfo.InvariantCulture, DateTimeStyles.None, out start))
             {
-                throw new ArgumentException("The date time should be in this exat format: dd-mm-yy hh:mm. Please start over with the addmatch command");
+                throw new ArgumentException("The date time should be in this exat format: dd-mm-yy hh:mm using a 24 hour format. Please start over with the addmatch command");
             }
             DateTime end = start.AddMinutes(90);
             

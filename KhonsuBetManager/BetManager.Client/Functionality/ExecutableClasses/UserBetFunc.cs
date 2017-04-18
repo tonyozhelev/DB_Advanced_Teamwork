@@ -234,6 +234,10 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 {
                     throw new ArgumentException("Invalid operation! No match exist with the selected Id. For a list of matches please use the viewmatches command.");
                 }
+                if (DateTime.Compare(context.Matches.Where(m => m.Id == betMatchId).FirstOrDefault().Start,DateTime.Today) != 1)
+                {
+                    throw new ArgumentException("Invalid operation! This match has already started");
+                }
                 if (userToCheck.Balance < ammountToBet)
                 {
                     throw new ArgumentException($"You don't have sufficient funds. Money in your account: ${Authenticator.GetCurrentUser().Balance}");
@@ -273,7 +277,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
 
         private static string CreateMultiBet()
         {
-            Console.WriteLine("Please enter the following command:\n[matchId] [desired bet (1/X/2)] or type exit when you made all bets on this sheet.");
+            Console.WriteLine("Please enter the following command:\n[matchId] [desired bet (1/X/2)] or type done when you made all bets on this sheet.");
             string[] bet = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int betMatchId = 0;
             decimal betsTotalCoef = 1m;
@@ -282,8 +286,12 @@ namespace BetManager.Client.Functionality.ExecutableClasses
             decimal curBetCoef = 0m;
             decimal ammountToBet = 0m;
             var betToAdd = new Bet { };
-            while (bet[0].ToLower() != "exit")
+            while (bet[0].ToLower() != "done")
             {
+                if (bet.Length != 2)
+                {
+                    throw new InvalidOperationException("Invalid operation! Please enter the commands exactly as described! Please start over with the placebet command.");
+                }
                 if (!int.TryParse(bet[0], out betMatchId) || betMatchId < 0)
                 {
                     throw new ArgumentException("Invalid operation! The match Id should be a positive number. You now need to start over with your multi bet.");
@@ -303,6 +311,10 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                     {
                         throw new ArgumentException("Invalid operation! No match exist with the selected Id. For a list of matches please use the viewmatches command.");
                     }
+                    if (DateTime.Compare(context.Matches.Where(m => m.Id == betMatchId).FirstOrDefault().Start, DateTime.Today) != 1)
+                    {
+                        throw new ArgumentException("Invalid operation! This match has already started! Please start over with the placebet command.");
+                    }
                     if (bet[1].ToLower() == "x")
                     {
                         curBetCoef = context.Matches.Where(m => m.Id == betMatchId).FirstOrDefault().CoefX;
@@ -320,7 +332,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 matchIdOfBet.Add(betMatchId);
                 betPredictions.Add(bet[1]);
 
-                Console.WriteLine("Please enter the following command:\n[matchId] [desired bet (1/X/2)] or type exit when you made all bets on this sheet.");
+                Console.WriteLine("Please enter the following command:\n[matchId] [desired bet (1/X/2)] or type done when you made all bets on this sheet.");
                 bet = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             }
 

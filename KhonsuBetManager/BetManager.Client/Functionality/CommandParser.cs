@@ -58,6 +58,9 @@ using System.Threading.Tasks;
                 case "placebet":
                     output = UserBetFunc.PlaceBets(commandArgs);
                     break;
+                case "updateresults":
+                    output = AdminFunc.UpdateMatchResult(commandArgs);
+                    break;
                 default:
                     break;
             }

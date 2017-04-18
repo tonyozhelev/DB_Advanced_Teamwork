@@ -134,7 +134,7 @@
                 throw new ArgumentException("The date time should be in this exat format: dd-mm-yy hh:mm using a 24 hour format. Please start over with the addmatch command");
             }
             DateTime end = start.AddMinutes(90);
-            
+
             var newMatchId = 0;
             using (var context = new BetManagerContext())
             {
@@ -155,6 +155,108 @@
             }
 
             return $"Added match [{team1} vs {team2}] with Id: {newMatchId}";
+        }
+
+        public static string UpdateMatchResult(string[] input)
+        {
+            if (!Authenticator.IsAdmin())
+            {
+                throw new InvalidOperationException("Invalid operation!");
+            }
+            if (input.Length != 0)
+            {
+                throw new InvalidOperationException("Invalid operation! Please type only updateresults and follow the instructions.");
+            }
+            Console.WriteLine("Please enter [matchid] [score]. The score should be in the following format [Team1]:[Team2]. Type done when finished updating.");
+            var matchToUpd = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            while (matchToUpd[0] != "done")
+            {
+                int matchId = 0;
+                int score1 = -1;
+                int score2 = -1;
+                if (matchToUpd.Length != 2)
+                {
+                    throw new ArgumentException("Invalid operation. Make sure that your input does not contain any excess spacing.");
+                }
+                if (!matchToUpd[1].Contains(":"))
+                {
+                    throw new ArgumentException("Invalid operation! Score should be in the following format [Team1]:[Team2].");
+                }
+                if (matchToUpd.Length != 2)
+                {
+                    throw new InvalidOperationException("Invalid operation! Please follow the instructions exactly!");
+                }
+                if (!int.TryParse(matchToUpd[0], out matchId))
+                {
+                    throw new ArgumentException("Invalit operation! The match ID should be a whole number.");
+                }
+                if (!int.TryParse(matchToUpd[1].Split(':')[0], out score1) || !int.TryParse(matchToUpd[1].Split(':')[1], out score2))
+                {
+                    throw new ArgumentException("Invalit operation! The match result should be two whole numbers with [:] in between.");
+                }
+                Console.WriteLine("Are you sure this is the correct result. Please note that there might be serious reprocutions from entering a wrong score. Please type Y to continue or anything else to break.");
+                var agree = Console.ReadLine();
+                if (agree == "Y")
+                {
+                    using (var context = new BetManagerContext())
+                    {
+                        var matchFromContext = context.Matches.Where(m => m.Id == matchId).FirstOrDefault();
+                        if (matchFromContext == null)
+                        {
+                            throw new ArgumentException($"No match with ID {matchId} exists! Please enter new command.");
+                        }
+                        if (matchFromContext.Result != 0)
+                        {
+                            throw new ArgumentException($"This match already has a result! If you want to change the result of a match please contact one of the owners so that the DB and Users are updated accordingly. Please be extra carefull when updating match scores!!!");
+                        }
+                        matchFromContext.Score = matchToUpd[1];
+                        if (score1 > score2)
+                        {
+                            matchFromContext.Result = 1;
+                        }
+                        else if (score1 < score2)
+                        {
+                            matchFromContext.Result = 2;
+                        }
+                        else
+                        {
+                            matchFromContext.Result = 3;
+                        }
+
+                        UpdateUserBets(context, matchFromContext);
+
+                        context.SaveChanges();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("You didn't add the match to the database.");
+                }
+                Console.WriteLine("Please enter [matchid] [score]. The score should be in the following format [Team1]:[Team2]. Type done when finished updating.");
+                matchToUpd = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            }
+            return "You have sucessfully updated the designated matches!";
+        }
+
+        private static void UpdateUserBets(BetManagerContext context, Match matchFromContext)
+        {
+            var resToPass = new string[] { "1", "2", "x" };
+            foreach (var match in context.MatchesBets.Where(m => m.MatchId == matchFromContext.Id))
+            {
+                match.Result = resToPass[matchFromContext.Result - 1];
+                var betToUpd = context.Bets.Where(b => b.Id == match.BetId).First();
+                if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x=>x.Result == x.BetPrediction))
+                {
+                    betToUpd.Win = "Y";
+                    context.Users.Where(u => u.Id == match.Bet.UserId).First().Balance += betToUpd.Coef * betToUpd.Ammount;
+                }
+                else if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x => x.Result != ""))
+                {
+                    betToUpd.Win = "N";
+                }
+            }
+
+            context.SaveChanges();
         }
     }
 }

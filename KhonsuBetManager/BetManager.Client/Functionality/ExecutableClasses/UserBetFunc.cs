@@ -350,10 +350,11 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                     throw new ArgumentException($"You don't have sufficient funds. Money in your account: ${Authenticator.GetCurrentUser().Balance}");
                 }
 
+                var user = Authenticator.GetCurrentUser();
                 betToAdd.Ammount = ammountToBet;
                 betToAdd.Coef = betsTotalCoef;
-                betToAdd.UserId = Authenticator.GetCurrentUser().Id;
-                context.Users.Where(u => u.Id == Authenticator.GetCurrentUser().Id).First().Balance -= ammountToBet;
+                betToAdd.UserId = user.Id;
+                context.Users.Where(u => u.Id == user.Id).First().Balance -= ammountToBet;
                 context.Bets.Add(betToAdd);
 
                 context.SaveChanges();

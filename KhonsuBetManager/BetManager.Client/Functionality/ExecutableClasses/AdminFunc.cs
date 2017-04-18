@@ -260,7 +260,7 @@
                     betToUpd.Win = "Y";
                     context.Users.Where(u => u.Id == match.Bet.UserId).First().Balance += betToUpd.Coef * betToUpd.Ammount;
                 }
-                else if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x => x.Result != ""))
+                else if (context.MatchesBets.Where(b => b.BetId == match.BetId).Any(x => x.Result != x.BetPrediction))
                 {
                     betToUpd.Win = "N";
                 }

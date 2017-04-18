@@ -152,11 +152,11 @@ namespace BetManager.Client.Functionality.ExecutableClasses
             {
                 if (input[0] == "future")
                 {
-                    matches = context.Matches.Where(m => m.Result == 0).ToList();
+                    matches = context.Matches.Where(m => DateTime.Compare(m.Start,DateTime.Now) > 0).ToList();
                 }
                 else
                 {
-                    matches = context.Matches.Where(m => m.Result != 0).ToList();
+                    matches = context.Matches.Where(m => DateTime.Compare(m.Start, DateTime.Now) != 1).ToList();
                 }
             }
 

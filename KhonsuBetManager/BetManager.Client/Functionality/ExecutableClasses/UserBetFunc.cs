@@ -353,7 +353,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 betToAdd.Ammount = ammountToBet;
                 betToAdd.Coef = betsTotalCoef;
                 betToAdd.UserId = Authenticator.GetCurrentUser().Id;
-
+                context.Users.Where(u => u.Id == Authenticator.GetCurrentUser().Id).First().Balance -= ammountToBet;
                 context.Bets.Add(betToAdd);
 
                 context.SaveChanges();

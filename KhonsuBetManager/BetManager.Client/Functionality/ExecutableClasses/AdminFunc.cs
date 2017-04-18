@@ -194,21 +194,27 @@
                 {
                     throw new ArgumentException("Invalit operation! The match result should be two whole numbers with [:] in between.");
                 }
-                Console.WriteLine("Are you sure this is the correct result. Please note that there might be serious reprocutions from entering a wrong score. Please type Y to continue or anything else to break.");
-                var agree = Console.ReadLine();
-                if (agree == "Y")
+
+
+
+                using (var context = new BetManagerContext())
                 {
-                    using (var context = new BetManagerContext())
+                    var matchFromContext = context.Matches.Where(m => m.Id == matchId).FirstOrDefault();
+                    if (matchFromContext.Result != 0)
                     {
-                        var matchFromContext = context.Matches.Where(m => m.Id == matchId).FirstOrDefault();
+                        throw new ArgumentException($"This match already has a result! If you want to change the result of a match please contact one of the owners so that the DB and Users are updated accordingly. Please be extra carefull when updating match scores!!!");
+                    }
+                    Console.WriteLine("Are you sure this is the correct result. Please note that there might be serious reprocutions from entering a wrong score. Please type Y to continue or anything else to break.");
+
+
+                    var agree = Console.ReadLine();
+                    if (agree == "Y")
+                    {
                         if (matchFromContext == null)
                         {
                             throw new ArgumentException($"No match with ID {matchId} exists! Please enter new command.");
                         }
-                        if (matchFromContext.Result != 0)
-                        {
-                            throw new ArgumentException($"This match already has a result! If you want to change the result of a match please contact one of the owners so that the DB and Users are updated accordingly. Please be extra carefull when updating match scores!!!");
-                        }
+
                         matchFromContext.Score = matchToUpd[1];
                         if (score1 > score2)
                         {
@@ -223,15 +229,19 @@
                             matchFromContext.Result = 3;
                         }
 
+                        context.SaveChanges();
+
                         UpdateUserBets(context, matchFromContext);
 
-                        context.SaveChanges();
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("You didn't add the match to the database.");
                     }
                 }
-                else
-                {
-                    Console.WriteLine("You didn't add the match to the database.");
-                }
+                
+                
                 Console.WriteLine("Please enter [matchid] [score]. The score should be in the following format [Team1]:[Team2]. Type done when finished updating.");
                 matchToUpd = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
             }
@@ -245,7 +255,7 @@
             {
                 match.Result = resToPass[matchFromContext.Result - 1];
                 var betToUpd = context.Bets.Where(b => b.Id == match.BetId).First();
-                if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x=>x.Result == x.BetPrediction))
+                if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x => x.Result == x.BetPrediction))
                 {
                     betToUpd.Win = "Y";
                     context.Users.Where(u => u.Id == match.Bet.UserId).First().Balance += betToUpd.Coef * betToUpd.Ammount;

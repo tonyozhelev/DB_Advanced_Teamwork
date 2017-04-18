@@ -1,4 +1,7 @@
-﻿using BetManager.Client.Functionality.ExecutableClasses;
+﻿
+namespace BetManager.Client.Functionality
+{
+using BetManager.Client.Functionality.ExecutableClasses;
 using BetManager.Data;
 using BetManager.Models;
 using System;
@@ -7,9 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-namespace BetManager.Client.Functionality
-{
     public class CommandParser
     {
         public string Execute(string command)
@@ -54,6 +54,9 @@ namespace BetManager.Client.Functionality
                     break;
                 case "viewmatches":
                     output = UserBetFunc.ViewMatches(commandArgs);
+                    break;
+                case "placebet":
+                    output = UserBetFunc.PlaceBets(commandArgs);
                     break;
                 default:
                     break;

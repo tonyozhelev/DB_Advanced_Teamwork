@@ -13,7 +13,6 @@
         public int UserId { get; set; }
         public decimal Coef { get; set; }
         public decimal Ammount { get; set; }
-        [Required]
         public char Win { get; set; }
         public virtual ICollection<MatchesBets> MatchesBets { get; set; }
     }

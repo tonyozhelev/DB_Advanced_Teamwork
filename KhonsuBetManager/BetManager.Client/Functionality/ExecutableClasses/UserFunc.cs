@@ -57,7 +57,6 @@
             return $"User {userName} successfully registered!";
         }
 
-
         public static string LoginUser(string[] input)
         {
             if (Authenticator.IsAuthenticated())
@@ -88,7 +87,6 @@
 
             return $"User {userName} logged in successfully!";
         }
-
 
         public static string LogoutUser(string[] commandArgs)
         {

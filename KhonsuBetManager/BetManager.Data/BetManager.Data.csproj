@@ -88,6 +88,14 @@
     <Compile Include="Migrations\201704171006094_removedRequiredScoreFromMatches.Designer.cs">
       <DependentUpon>201704171006094_removedRequiredScoreFromMatches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704180019112_RemovedRequiredWinFromBets.cs" />
+    <Compile Include="Migrations\201704180019112_RemovedRequiredWinFromBets.Designer.cs">
+      <DependentUpon>201704180019112_RemovedRequiredWinFromBets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704180045563_AddedBetPredictionToMatchesBets.cs" />
+    <Compile Include="Migrations\201704180045563_AddedBetPredictionToMatchesBets.Designer.cs">
+      <DependentUpon>201704180045563_AddedBetPredictionToMatchesBets.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -128,6 +136,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704171006094_removedRequiredScoreFromMatches.resx">
       <DependentUpon>201704171006094_removedRequiredScoreFromMatches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704180019112_RemovedRequiredWinFromBets.resx">
+      <DependentUpon>201704180019112_RemovedRequiredWinFromBets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704180045563_AddedBetPredictionToMatchesBets.resx">
+      <DependentUpon>201704180045563_AddedBetPredictionToMatchesBets.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

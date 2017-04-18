@@ -234,7 +234,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 {
                     throw new ArgumentException("Invalid operation! No match exist with the selected Id. For a list of matches please use the viewmatches command.");
                 }
-                if (Authenticator.GetCurrentUser().Balance < ammountToBet)
+                if (userToCheck.Balance < ammountToBet)
                 {
                     throw new ArgumentException($"You don't have sufficient funds. Money in your account: ${Authenticator.GetCurrentUser().Balance}");
                 }

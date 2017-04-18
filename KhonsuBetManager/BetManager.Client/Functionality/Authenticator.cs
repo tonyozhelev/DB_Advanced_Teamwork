@@ -7,11 +7,11 @@
 
     class Authenticator
     {
-        private static User currentUser;
+        private static int currentUserId;
 
         public static bool IsAuthenticated()
         {
-            return currentUser != null;
+            return currentUserId != 0;
         }
 
         public static bool IsAdmin()
@@ -20,7 +20,7 @@
             {
                 throw new InvalidOperationException("Invalid operation!");
             }
-            return currentUser.IsAdmin == 1;
+            return GetCurrentUser().IsAdmin == 1;
         }
 
         public static bool IsOwner()
@@ -32,9 +32,9 @@
             var isOwner = 0;
             using (var context = new BetManagerContext())
             {
-                if (context.Admins.Where(a => a.UserId == currentUser.Id).FirstOrDefault() != null)
+                if (context.Admins.Where(a => a.UserId == currentUserId).FirstOrDefault() != null)
                 {
-                    isOwner = context.Admins.Where(a => a.UserId == currentUser.Id).FirstOrDefault().Owner;
+                    isOwner = context.Admins.Where(a => a.UserId == currentUserId).FirstOrDefault().Owner;
                 }                
             }
             return isOwner == 1;
@@ -47,7 +47,7 @@
                 throw new InvalidOperationException("You should login first!");
             }
 
-            currentUser = null;
+            currentUserId = 0;
         }
 
         public static void Login(User user)
@@ -62,11 +62,17 @@
                 throw new InvalidOperationException("User to log in is invalid!");
             }
 
-            currentUser = user;
+            currentUserId = user.Id;
         }
 
         public static User GetCurrentUser()
         {
+            var currentUser = new User();
+            using (var context = new BetManagerContext())
+            {
+                currentUser = context.Users.Where(u => u.Id == currentUserId).First();
+            }
+
             return currentUser;
         }
     }

@@ -61,6 +61,12 @@ using System.Threading.Tasks;
                 case "updateresults":
                     output = AdminFunc.UpdateMatchResult(commandArgs);
                     break;
+                case "listbets":
+                    output = UserBetFunc.ListBets(commandArgs);
+                    break;
+                case "viewuserinfo":
+                    output = UserBetFunc.ViewUserInfo(commandArgs);
+                    break;
                 default:
                     break;
             }

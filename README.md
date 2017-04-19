@@ -7,15 +7,16 @@ https://docs.google.com/spreadsheets/d/1UyuyxH8NBWgrdTSEfoZDH7DbEv70JDdWkZG5gCFQ
 TODO:
 
 User Create Functionality:<br/>
-Make **User** **Register** function -> **DONE**<br/>
-Make **User** **Login** function -> **DONE**<br/>
-Make **User** **Logout** function -> **DONE**<br/>
-Promote some **Users** to **Admins** manualy -> **DONE**<br/>
-Make **User** function to **Change Password** -> **DONE**<br/>
-Make **User** function to **Delete Account**<br/>
-Make **User** function to **Restore Account**<br/>
-Make **User** function to **Reset Password** -> send e-mail with random generated password (this will be added later if possible)<br/>
-
+```diff
++Make **User** **Register** function -> **DONE**<br/>
++Make **User** **Login** function -> **DONE**<br/>
++Make **User** **Logout** function -> **DONE**<br/>
++Promote some **Users** to **Admins** manualy -> **DONE**<br/>
++Make **User** function to **Change Password** -> **DONE**<br/>
+-Make **User** function to **Delete Account**<br/>
+-Make **User** function to **Restore Account**<br/>
+-Make **User** function to **Reset Password** -> send e-mail with random generated password (this will be added later if possible)<br/>
+```
 Admin Functionality:<br/>
 Make function for **Owners** to **Promote** other **Users** to **Admins** -> **DONE**<br/>
 Make function for **Owners** to **Demote** other **Users** from **Admins** -> **DONE**<br/>
@@ -23,6 +24,7 @@ Make function for **Admin** to **Add Matches** -> **DONE**<br/>
 Make function for **Admin** to **Update Match Results** -> **DONE**<br/>
 Make function when **Match Score** is updated to **Resolve Bets** -> **DONE**<br/>
 Add initial money to operate with -> **DONE**<br/>
+Make function for **Admin** to export all user info in xml -> **DONE**<br/>
 Make function for **Admin** to **Add Matches from file** -> possibly from json or xml<br/>
 Make **Admin** function to **Delete Account**<br/>
 Make **Admin** function to **Restore Account**<br/>
@@ -33,9 +35,9 @@ Make function for **User** to **Deposit Money** -> **DONE**<br/>
 Make function for **User** to **Withdraw Money** -> **DONE**<br/>
 Make function for **User** to **Place Bets** --> **DONE**<br/>
 Make function for **User** to **View Matches** -> **DONE**<br/>
-Make function for **User** to **View User Info (money and stuff)** -><br/>
+Make function for **User** to **View User Info (money and stuff)** ->**DONE**<br/>
+Make function for **User** to view **Placed Bets** -> **DONE**<br/>
 Make function for **User** to **Filter Matches**<br/>
-Make function for **User** to view **Placed Bets** -> print some data in xml or json<br/>
 Display resolved matches since last Login on **User** **Login**<br/>
 
 General:<br/>

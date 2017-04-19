@@ -9,6 +9,8 @@ namespace BetManager.Client.Functionality.ExecutableClasses
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using System.Xml.Linq;
+
     public class UserBetFunc
     {
         public static string DepositMoney(string[] input)
@@ -373,6 +375,126 @@ namespace BetManager.Client.Functionality.ExecutableClasses
             }
 
             return "You have placed your bet. If you want to review use the listbets command";
+        }
+
+        public static string ListBets(string[] input)
+        {
+            if (Authenticator.IsAdmin())
+            {
+                throw new InvalidOperationException("You're an admin. You can't gamble!");
+            }
+            if (!Authenticator.IsAuthenticated())
+            {
+                throw new InvalidOperationException("Please login first!");
+            }
+            var user = Authenticator.GetCurrentUser();
+            var userBets = new List<Bet>();
+            var pred = new string[] { "1", "x", "2" };
+            var result = new string[] { "Winning", "Losing", "Pending" };
+            var resultInDB = new string[] { "Y", "N", null };
+            using (var context = new BetManagerContext())
+            {
+                foreach (var bet in context.Bets.Where(b => b.UserId == user.Id))
+                {
+                    userBets.Add(bet);
+                }
+                if (userBets.Count == 0)
+                {
+                    throw new InvalidOperationException("You haven't placed any bets");
+                }
+                foreach (var bet in userBets)
+                {
+                    Console.WriteLine($"Bet N {bet.Id} contains the following matches:");
+                    foreach (var match in bet.MatchesBets)
+                    {
+                        var coefs = new decimal[] { match.Match.Coef1, match.Match.CoefX, match.Match.Coef2 };
+                        Console.WriteLine($"{match.Match.Team1} vs {match.Match.Team2} startin on {match.Match.Start}");
+                        Console.WriteLine($"Prediction => {match.BetPrediction}; Coef => {coefs[Array.IndexOf(pred, match.BetPrediction)]} Result => {match.Result}");
+                    }
+                    Console.WriteLine($"Ammount wagered => ${bet.Ammount}; This bet is {result[Array.IndexOf(resultInDB, bet.Win)]}");
+                    if (bet.Win == "Y")
+                    {
+                        Console.WriteLine($"Ammount won ${bet.Ammount*bet.Coef}");
+                    }
+                }
+            }
+            return "End of List";
+        }
+
+        public static string ViewUserInfo(string[] input)
+        {
+            if (!Authenticator.IsAdmin())
+            {
+                PrintInfoUser(input);
+            }
+
+            if (Authenticator.IsAdmin())
+            {
+                PrintInfoAdmin(input);
+            }
+            return "Please type in your next command";
+        }
+
+        private static void PrintInfoUser(string[] input)
+        {
+            if (!Authenticator.IsAuthenticated())
+            {
+                throw new InvalidOperationException("Please login first!");
+            }
+            if (input.Length != 0)
+            {
+                throw new InvalidOperationException("To view info just type viewuserinfo");
+            }
+            else
+            {
+                var userToView = Authenticator.GetCurrentUser();
+                using (var context = new BetManagerContext())
+                {
+                    var totalMatches = 0;
+                    foreach (var bet in userToView.Bets)
+                    {
+                        totalMatches += bet.MatchesBets.Count();
+                    }
+                    Console.WriteLine($"User Info For User: {userToView.Login}");
+                    Console.WriteLine($"Ballance: ${userToView.Balance}");
+                    Console.WriteLine($"Email: {userToView.Email}");
+                    Console.WriteLine($"Bets Count: {userToView.Bets.Count} On Total Matches {totalMatches}");
+                    Console.WriteLine($"Bets Won: {userToView.Bets.Where(b => b.Win == "Y").ToList().Count} Lost: {userToView.Bets.Where(b => b.Win == "N").ToList().Count} Pending: {userToView.Bets.Where(b => b.Win == "").ToList().Count}");
+                }
+            }
+        }
+
+        private static void PrintInfoAdmin(string[] input)
+        {
+            var xmlDocument = new XDocument();
+            using (var context = new BetManagerContext())
+            {
+                xmlDocument.Add(new XElement("users"));
+                foreach (var user in context.Users)
+                {
+                    var userXML = new XElement("user", new XElement("email", user.Email), new XElement("username",user.Login));
+                    xmlDocument.Root.Add(userXML);
+                    var listBetsXML = new XElement("bets");
+                    userXML.Add(listBetsXML);
+                    
+                    foreach (var bet in user.Bets)
+                    {
+                        var betXML = new XElement("bet", $"id={bet.Id}", $"ammount={bet.Ammount}", $"coef={bet.Coef}", $"win={bet.Win}");
+                        listBetsXML.Add(betXML);
+                        var listMatchesXML = new XElement("matches");
+                        betXML.Add(listMatchesXML);
+                        foreach (var match in bet.MatchesBets)
+                        {
+                            var matchXML = new XElement("match",
+                                $"{match.Match.Team1} vs {match.Match.Team2}; League: {match.Match.League}; Start: {match.Match.Start}; Score: {match.Match.Score}");
+                            listMatchesXML.Add(matchXML);
+                        }
+                    }
+                }
+            }
+
+            xmlDocument.Save("../../Users.xml");
+            Console.WriteLine("All User Info Printed in Users.xml");
         }
     }
 }

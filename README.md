@@ -42,8 +42,10 @@ User Betting Functionality:<br/>
 +Make function for **User** to view **Placed Bets** -> **DONE**<br/>
 -Make function for **User** to **Filter Matches**<br/>
 -Display resolved matches since last Login on **User** **Login**<br/>
-
+```
 General:<br/>
-Add **HELP** Menu<br/>
-**Add more functions**<br/>
+```diff
++Add **HELP** Menu<br/>
+-**Add more functions**<br/>
+```
 

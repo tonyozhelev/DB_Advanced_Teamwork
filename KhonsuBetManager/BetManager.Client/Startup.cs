@@ -8,8 +8,9 @@
     {
         static void Main(string[] args)
         {
+            Console.SetWindowSize(190, 50);
             var Executor = new CommandParser();
-            
+            Console.WriteLine(Executor.PrintIntro()); 
             while (true)
             {
                 try

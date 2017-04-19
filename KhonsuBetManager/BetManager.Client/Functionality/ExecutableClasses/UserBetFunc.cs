@@ -154,7 +154,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
             {
                 if (input[0] == "future")
                 {
-                    matches = context.Matches.Where(m => DateTime.Compare(m.Start,DateTime.Now) > 0).ToList();
+                    matches = context.Matches.Where(m => DateTime.Compare(m.Start, DateTime.Now) > 0).ToList();
                 }
                 else
                 {
@@ -236,7 +236,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 {
                     throw new ArgumentException("Invalid operation! No match exist with the selected Id. For a list of matches please use the viewmatches command.");
                 }
-                if (DateTime.Compare(context.Matches.Where(m => m.Id == betMatchId).FirstOrDefault().Start,DateTime.Today) != 1)
+                if (DateTime.Compare(context.Matches.Where(m => m.Id == betMatchId).FirstOrDefault().Start, DateTime.Today) != 1)
                 {
                     throw new ArgumentException("Invalid operation! This match has already started");
                 }
@@ -400,7 +400,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 }
                 if (userBets.Count == 0)
                 {
-                    throw new InvalidOperationException("You haven't placed any bets");
+                    throw new InvalidOperationException("You haven't placed any bets!");
                 }
                 foreach (var bet in userBets)
                 {
@@ -414,7 +414,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                     Console.WriteLine($"Ammount wagered => ${bet.Ammount}; This bet is {result[Array.IndexOf(resultInDB, bet.Win)]}");
                     if (bet.Win == "Y")
                     {
-                        Console.WriteLine($"Ammount won ${bet.Ammount*bet.Coef}");
+                        Console.WriteLine($"Ammount won ${bet.Ammount * bet.Coef}");
                     }
                 }
             }
@@ -428,7 +428,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 PrintInfoUser(input);
             }
 
-            if (Authenticator.IsAdmin())
+            else if (Authenticator.IsAdmin())
             {
                 PrintInfoAdmin(input);
             }
@@ -445,41 +445,45 @@ namespace BetManager.Client.Functionality.ExecutableClasses
             {
                 throw new InvalidOperationException("To view info just type viewuserinfo");
             }
-            else
+
+            using (var context = new BetManagerContext())
             {
                 var userToView = Authenticator.GetCurrentUser();
-                using (var context = new BetManagerContext())
+                context.Users.Attach(userToView);
+                var totalMatches = 0;
+                foreach (var bet in userToView.Bets)
                 {
-                    var totalMatches = 0;
-                    foreach (var bet in userToView.Bets)
-                    {
-                        totalMatches += bet.MatchesBets.Count();
-                    }
-                    Console.WriteLine($"User Info For User: {userToView.Login}");
-                    Console.WriteLine($"Ballance: ${userToView.Balance}");
-                    Console.WriteLine($"Email: {userToView.Email}");
-                    Console.WriteLine($"Bets Count: {userToView.Bets.Count} On Total Matches {totalMatches}");
-                    Console.WriteLine($"Bets Won: {userToView.Bets.Where(b => b.Win == "Y").ToList().Count} Lost: {userToView.Bets.Where(b => b.Win == "N").ToList().Count} Pending: {userToView.Bets.Where(b => b.Win == "").ToList().Count}");
+                    totalMatches += bet.MatchesBets.Count();
                 }
+                Console.WriteLine($"User Info For User: {userToView.Login}");
+                Console.WriteLine($"Ballance: ${userToView.Balance}");
+                Console.WriteLine($"Email: {userToView.Email}");
+                Console.WriteLine($"Bets Count: {userToView.Bets.Count} On Total Matches {totalMatches}");
+                Console.WriteLine($"Bets Won: {userToView.Bets.Where(b => b.Win == "Y").ToList().Count} Lost: {userToView.Bets.Where(b => b.Win == "N").ToList().Count} Pending: {userToView.Bets.Where(b => b.Win == null).ToList().Count}");
             }
+
         }
 
         private static void PrintInfoAdmin(string[] input)
         {
+            if (input.Length != 0)
+            {
+                throw new InvalidOperationException("To view info just type viewuserinfo!");
+            }
             var xmlDocument = new XDocument();
             using (var context = new BetManagerContext())
             {
                 xmlDocument.Add(new XElement("users"));
                 foreach (var user in context.Users)
                 {
-                    var userXML = new XElement("user", new XElement("email", user.Email), new XElement("username",user.Login));
+                    var userXML = new XElement("user", new XElement("email", user.Email), new XElement("username", user.Login));
                     xmlDocument.Root.Add(userXML);
                     var listBetsXML = new XElement("bets");
                     userXML.Add(listBetsXML);
-                    
+
                     foreach (var bet in user.Bets)
                     {
-                        var betXML = new XElement("bet", $"id={bet.Id}", $"ammount={bet.Ammount}", $"coef={bet.Coef}", $"win={bet.Win}");
+                        var betXML = new XElement("bet", new XAttribute("id", bet.Id), new XAttribute("ammount", bet.Ammount), new XAttribute("coef", bet.Coef), $"win={bet.Win}");
                         listBetsXML.Add(betXML);
                         var listMatchesXML = new XElement("matches");
                         betXML.Add(listMatchesXML);
@@ -493,7 +497,7 @@ namespace BetManager.Client.Functionality.ExecutableClasses
                 }
             }
 
-            xmlDocument.Save("../../Users.xml");
+            xmlDocument.Save("../../../Users.xml");
             Console.WriteLine("All User Info Printed in Users.xml");
         }
     }

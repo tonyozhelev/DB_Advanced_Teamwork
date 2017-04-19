@@ -14,7 +14,7 @@
         {
             if (!Authenticator.IsOwner())
             {
-                throw new InvalidOperationException("Invalid operation!");
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
             }
 
             if (input.Length > 1)
@@ -54,7 +54,7 @@
         {
             if (!Authenticator.IsOwner())
             {
-                throw new InvalidOperationException("Invalid operation!");
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
             }
 
             if (input.Length > 1)
@@ -93,7 +93,7 @@
         {
             if (!Authenticator.IsAdmin())
             {
-                throw new InvalidOperationException("Invalid operation");
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
             }
             if (input.Length != 0)
             {
@@ -161,7 +161,7 @@
         {
             if (!Authenticator.IsAdmin())
             {
-                throw new InvalidOperationException("Invalid operation!");
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
             }
             if (input.Length != 0)
             {

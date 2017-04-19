@@ -61,7 +61,7 @@
         {
             if (Authenticator.IsAuthenticated())
             {
-                throw new InvalidOperationException("You are already logged in");
+                throw new InvalidOperationException("You are already logged in!");
             }
             if (input.Length != 2)
             {
@@ -77,7 +77,7 @@
 
                 if (user == null || user.Password != pass || user.Login != userName)
                 {
-                    throw new ArgumentException("Invalid Username/Password");
+                    throw new ArgumentException("Invalid Username/Password!");
                 }
 
                 Authenticator.Login(user);

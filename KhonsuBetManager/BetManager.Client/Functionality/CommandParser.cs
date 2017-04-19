@@ -128,7 +128,7 @@ ______________$$$$$$$";
 USER FUNCTIONS:
 1. DEPOSIT [CARD NUMBER] [MONEY AMMOUNT] - Deposit money from your credit card;
 2. WITHDRAW [CARD NUMBER] [MONEY AMMOUNT] - Withdraw money to your credit card;
-3. VIEWMATCHES [PAST/PRESENT] - View a list of past or present matches;
+3. VIEWMATCHES [PAST/FUTURE] - View a list of past or present matches;
 4. PLACEBET [SINGLE/MULTI] - Place a single bet or multiple bet;
 5. LISTBETS - List of all your bets;
 6. VIEWUSERINFO - View your info;
@@ -148,6 +148,7 @@ ADMIN FUNCTIONS:
             if (Authenticator.IsAuthenticated() && Authenticator.IsOwner())
             {
                 helpPrint += @"
+OWNER FUNCTIONS:
 1. PROMOTE [USERNAME] - Promote the selected user to admin;
 2. DEMOTE [USERNAME] - Remove admin status from user;
 ";

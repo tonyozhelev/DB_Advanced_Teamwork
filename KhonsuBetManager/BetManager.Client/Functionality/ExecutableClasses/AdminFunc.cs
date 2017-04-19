@@ -200,6 +200,10 @@
                 using (var context = new BetManagerContext())
                 {
                     var matchFromContext = context.Matches.Where(m => m.Id == matchId).FirstOrDefault();
+                    if (matchFromContext == null)
+                    {
+                        throw new ArgumentException($"No match with ID {matchId} exists! Please enter new command.");
+                    }
                     if (matchFromContext.Result != 0)
                     {
                         throw new ArgumentException($"This match already has a result! If you want to change the result of a match please contact one of the owners so that the DB and Users are updated accordingly. Please be extra carefull when updating match scores!!!");
@@ -210,11 +214,6 @@
                     var agree = Console.ReadLine();
                     if (agree == "Y")
                     {
-                        if (matchFromContext == null)
-                        {
-                            throw new ArgumentException($"No match with ID {matchId} exists! Please enter new command.");
-                        }
-
                         matchFromContext.Score = matchToUpd[1];
                         if (score1 > score2)
                         {
@@ -251,18 +250,17 @@
         private static void UpdateUserBets(BetManagerContext context, Match matchFromContext)
         {
             var resToPass = new string[] { "1", "2", "x" };
-            foreach (var match in context.MatchesBets.Where(m => m.MatchId == matchFromContext.Id))
+            foreach (var bet in context.Bets.Where(x => x.MatchesBets.Any(m =>m.MatchId == matchFromContext.Id)))
             {
-                match.Result = resToPass[matchFromContext.Result - 1];
-                var betToUpd = context.Bets.Where(b => b.Id == match.BetId).First();
-                if (context.MatchesBets.Where(b => b.BetId == match.BetId).All(x => x.Result == x.BetPrediction))
+                bet.MatchesBets.Where(x => x.MatchId == matchFromContext.Id).First().Result = resToPass[matchFromContext.Result - 1];
+                if (bet.MatchesBets.All(x => x.BetPrediction == x.Result))
                 {
-                    betToUpd.Win = "Y";
-                    context.Users.Where(u => u.Id == match.Bet.UserId).First().Balance += betToUpd.Coef * betToUpd.Ammount;
+                    bet.Win = "Y";
+                    context.Users.Where(u => u.Id == bet.UserId).First().Balance += bet.Coef * bet.Ammount;
                 }
-                else if (context.MatchesBets.Where(b => b.BetId == match.BetId).Any(x => x.Result != x.BetPrediction))
+                else if (bet.MatchesBets.Any(x => x.Result != x.BetPrediction) && bet.MatchesBets.All(x => x.Result != null))
                 {
-                    betToUpd.Win = "N";
+                    bet.Win = "N";
                 }
             }
 

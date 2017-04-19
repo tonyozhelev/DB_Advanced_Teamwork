@@ -27,7 +27,7 @@ Admin Functionality:<br/>
 +Make function when **Match Score** is updated to **Resolve Bets** -> **DONE**<br/>
 +Add initial money to operate with -> **DONE**<br/>
 +Make function for **Admin** to export all user info in xml -> **DONE**<br/>
--Make function for **Admin** to **Add Matches from file** -> possibly from json or xml<br/>
++Make function for **Admin** to **Add Matches from json** -> **DONE**<br/>
 -Make **Admin** function to **Delete Account**<br/>
 -Make **Admin** function to **Restore Account**<br/>
 -Make some **Accounting** functionality for **Admin/Owner** -> print some data in xml or json<br/>

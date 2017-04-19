@@ -70,6 +70,12 @@ using System.Threading.Tasks;
                 case "help":
                     output = PrintHelp();
                     break;
+                case "createtemplate":
+                    output = AdminFunc.CreateJsonTemplate(commandArgs);
+                    break;
+                case "addjson":
+                    output = AdminFunc.AddFromJson(commandArgs);
+                    break;
                 default:
                     output = "Type HELP for a list of commands;";
                     break;
@@ -142,6 +148,8 @@ ADMIN FUNCTIONS:
 1. ADDMATCH - Add a new match in the system. Please follow the instruction strictly;
 2. UPDATERESULTS - Update results of matches. Please follow the instruction strictly;
 3. VIEWUSERINFO - View info about all users. Info will be saved into an Users.xml file for your convenience;
+4. CREATETEMPLATE [FILENAME WITHOUT EXTENTION] - Creates a json file template to fill matches;
+5. ADDJSON [FILENAME WITHOUT EXTENTION] - Adds matches from json file;
 ";
             }
 

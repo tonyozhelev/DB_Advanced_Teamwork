@@ -1,0 +1,29 @@
+[
+  {
+    "Team1": "Hertha Berlin",
+    "Team2": "Wolfsburg",
+    "League": "Bundesliga",
+    "coef1": "2.45",
+    "coef2": "3.25",
+    "coef3": "2.88",
+    "start": "22-04-17 16:30"
+  },
+  {
+    "Team1": "Ingolstadt",
+    "Team2": "SV Werder Bremen",
+    "League": "Bundesliga",
+    "coef1": "2.1",
+    "coef2": "3.3",
+    "coef3": "3.5",
+    "start": "22-04-17 16:30"
+  },
+  {
+    "Team1": "B. Monchengladbach",
+    "Team2": "Dortmund",
+    "League": "Bundesliga",
+    "coef1": "3.4",
+    "coef2": "3.5",
+    "coef3": "2.05",
+    "start": "22-04-17 19:30"
+  }
+]

@@ -2,11 +2,13 @@
 {
     using Data;
     using Models;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     public class AdminFunc
     {
@@ -89,6 +91,7 @@
             return $"User {username} has been removed from Admins!";
         }
 
+
         public static string AddMatch(string[] input)
         {
             if (!Authenticator.IsAdmin())
@@ -136,19 +139,19 @@
             DateTime end = start.AddMinutes(90);
 
             var newMatchId = 0;
+            var newMatch = new Models.Match
+            {
+                Team1 = team1,
+                Team2 = team2,
+                Coef1 = coef1,
+                CoefX = coef2,
+                Coef2 = coef3,
+                League = league,
+                Start = start,
+                End = end
+            };
             using (var context = new BetManagerContext())
             {
-                var newMatch = new Match
-                {
-                    Team1 = team1,
-                    Team2 = team2,
-                    Coef1 = coef1,
-                    CoefX = coef2,
-                    Coef2 = coef3,
-                    League = league,
-                    Start = start,
-                    End = end
-                };
                 context.Matches.Add(newMatch);
                 context.SaveChanges();
                 newMatchId = newMatch.Id;
@@ -247,7 +250,7 @@
             return "You have sucessfully updated the designated matches!";
         }
 
-        private static void UpdateUserBets(BetManagerContext context, Match matchFromContext)
+        private static void UpdateUserBets(BetManagerContext context, Models.Match matchFromContext)
         {
             var resToPass = new string[] { "1", "2", "x" };
             foreach (var bet in context.Bets.Where(x => x.MatchesBets.Any(m =>m.MatchId == matchFromContext.Id)))
@@ -266,6 +269,127 @@
 
             context.SaveChanges();
         }
+
+        public static string CreateJsonTemplate(string[] input)
+        {
+            Regex checkFileName = new Regex("[a-zA-Z0-9]{3,}");
+            if (!Authenticator.IsAdmin())
+            {
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
+            }
+            if (input.Length != 1)
+            {
+                throw new InvalidOperationException("Invalid operation! The createtemplate command should be in the following format\ncreatetemplate [filename]");
+            }
+            if (!checkFileName.IsMatch(input[0]))
+            {
+                throw new ArgumentException("Your file name should contain at least 3 symbols. Only Alphanumerics are allowed.");
+            }
+            string jsonTemplate = "[\n{\nTeam1:\"\"\nTeam2:\"\"\nLeague:\"\"\ncoef1:\"\"\ncoef2:\"\"\ncoef3:\"\"\nstart:\"\"\n},\n{\nTeam1:\"\"\nTeam2:\"\"\nLeague:\"\"\ncoef1:\"\"\ncoef2:\"\"\ncoef3:\"\"\nstart:\"\"\n}\n]";
+            System.IO.File.WriteAllText($"../../../{input[0]}.json", jsonTemplate);
+            return $"You've created template {input[0]}.json. Please fill the file and add the matches!";
+        }
+
+
+        internal static string AddFromJson(string[] input)
+        {
+            int count = 0;
+            if (!Authenticator.IsAdmin())
+            {
+                throw new InvalidOperationException("Invalid operation! Type HELP for list of commands!");
+            }
+            if (input.Length != 1)
+            {
+                throw new ArgumentException("Invalid command. The addfromjson command should be in the following format:\naddfromjson [filename without extention]");
+            }
+
+            var arrayOfMatchText = JsonConvert.DeserializeObject<MatchText[]>(System.IO.File.ReadAllText($"../../../{input[0]}.json"));
+            var matchList = new List<Models.Match>();
+            if (arrayOfMatchText.Length == 0)
+            {
+                throw new ArgumentException("There are no matches entered in the file");
+            }
+            foreach (var match in arrayOfMatchText)
+            {
+                count++;
+                DateTime start;
+                if (!DateTime.TryParseExact(match.Start, "d-M-y H:m", CultureInfo.InvariantCulture, DateTimeStyles.None, out start))
+                {
+                    throw new ArgumentException($"The date time should be in this exat format: dd-mm-yy hh:mm using a 24 hour format. Please fix the value for entity {count} in the file");
+                }
+                if (matchList.Where(m => m.Team1 == match.Team1 && m.Team2 == match.Team2 && DateTime.Compare(m.Start,start)==0).Count() != 0)
+                {
+                    throw new ArgumentException($"Match {count} is a double. Please verify your file");
+                }
+                matchList.Add(AddMatch(match.Team1, match.Team2, match.League, match.Coef1, match.Coef2, match.Coef3, match.Start, count));
+            }
+
+            using (var context = new BetManagerContext())
+            {
+                context.Matches.AddRange(matchList);
+                context.SaveChanges();
+            }
+            
+            return $"You have added {count} matches to the database!";
+        }
+
+
+        public static Models.Match AddMatch(string t1, string t2, string lg, string cf1, string cfx, string cf2, string startDate, int count)
+        {
+            var team1 = t1;
+            var team2 = t2;
+            var league = lg;
+            var coef1str = cf1;
+            var coef1 = 0m;
+            if (!decimal.TryParse(coef1str, out coef1) || coef1 <= 0m)
+            {
+                throw new ArgumentException($"Coef should be a number with a floating point. Please fix the value for entity {count} in the file");
+            }
+            var coef2str = cfx;
+            var coef2 = 0m;
+            if (!decimal.TryParse(coef2str, out coef2) || coef2 <= 0m)
+            {
+                throw new ArgumentException($"Coef should be a number with a floating point. Please fix the value for entity {count} in the file");
+            }
+            var coef3str = cf2;
+            var coef3 = 0m;
+            if (!decimal.TryParse(coef3str, out coef3) || coef3 <= 0m)
+            {
+                throw new ArgumentException($"Coef should be a number with a floating point. Please fix the value for entity {count} in the file");
+            }
+            DateTime start;
+            if (!DateTime.TryParseExact(startDate, "d-M-y H:m", CultureInfo.InvariantCulture, DateTimeStyles.None, out start))
+            {
+                throw new ArgumentException($"The date time should be in this exat format: dd-mm-yy hh:mm using a 24 hour format. Please fix the value for entity {count} in the file");
+            }
+            DateTime end = start.AddMinutes(90);
+
+            var newMatch = new Models.Match
+            {
+                Team1 = team1,
+                Team2 = team2,
+                Coef1 = coef1,
+                CoefX = coef2,
+                Coef2 = coef3,
+                League = league,
+                Start = start,
+                End = end
+            };
+
+            return newMatch;
+        }
+    }
+
+    internal class MatchText
+    {
+        public string Team1 { get; set; }
+        public string Team2 { get; set; }
+        public string League { get; set; }
+        public string Coef1 { get; set; }
+        public string Coef2 { get; set; }
+        public string Coef3 { get; set; }
+        public string Start { get; set; }
+
     }
 }
 

@@ -1,3 +1,8 @@
+This is a project I did for my Entity Framework Teamwork assignment. I was assigned with two other people, but after trying to contact them in several ways, they showed no interest so I did it all by myself. I think that this project was far more complex than my first one since even though it was all strings and numbers and not some heavy math it ended up far more clean and user friendly. What I wanted to achieve with some of my decisions is not having the user stuck on a screen and not knowing what to do. 
+I’ve used a lot of what I learned in the EF module from SoftUni. I’ve constantly used migrations while developing the data base. Even though it was supposed to be a betting and gambling application most of my time was spent on the actual logged user – not logged user – admin interactions. The math behind the project is really simple and all it involves are some basic calculations in order to proceed all the data that is input in the DB, however it has several user roles which all have their corresponding functionality and ways to “edit” the database and enter new data. I think it was a really fun project and although in the beginning seemed really simple I enjoyed having to overcome all the obstacles that came with all the user levels introduced in it.
+In the admin menu there are options for exporting some of the data in xml files. Also there is an option for the admin to create a json template for entering the matches scores in the DB, for easier workflow.
+
+
 # DB_Advanced_Teamwork
 KhonsuBetManager
 
